@@ -1,0 +1,556 @@
+
+:root {
+    --font-family: 'Inter', sans-serif;
+    --font-family-display: 'Space Grotesk', sans-serif; /* Kept for distinct titles if desired, but Inter can be used throughout */
+
+    /* Daily Meal Light Theme (Default) */
+    --bg-color-light: #F4F4F5; /* Soft Pearl - calm, light neutral background */
+    --surface-color-light: #FFFFFF; /* True White - for elevated cards and components */
+    --text-color-light: #1E1E1E; /* Deep Charcoal - rich, readable body and title color */
+    --text-muted-color-light: #52525B; /* Zinc 600 - for less prominent text */
+    --primary-color-light: #7F5AF0; /* Electric Lavender - clean, modern accent */
+    --primary-hover-color-light: #6D44E0; /* Darker Electric Lavender */
+    --tertiary-color-light: #FF8906; /* Sunbeam Orange - warm highlight for CTAs */
+    --tertiary-hover-color-light: #E07000; /* Darker Sunbeam Orange */
+    --border-color-light: #E4E4E7; /* Zinc 200 - for subtle borders */
+    --input-bg-color-light: #FFFFFF;
+    --input-focus-border-light: var(--primary-color-light);
+    --error-color-light: #EF4444; /* Red 500 */
+
+    /* Daily Meal Dark Theme */
+    --bg-color-dark: #18181B; /* Zinc 900 */
+    --surface-color-dark: #27272A; /* Zinc 800 */
+    --text-color-dark: #F4F4F5; /* Soft Pearl (as text on dark) */
+    --text-muted-color-dark: #A1A1AA; /* Zinc 400 */
+    --primary-color-dark: #A78BFA; /* Lighter Electric Lavender for dark mode */
+    --primary-hover-color-dark: #9378E0;
+    --tertiary-color-dark: #FB923C; /* Lighter Sunbeam Orange for dark mode */
+    --tertiary-hover-color-dark: #F97316;
+    --border-color-dark: #3F3F46; /* Zinc 700 */
+    --input-bg-color-dark: #3F3F46; /* Zinc 700 */
+    --input-focus-border-dark: var(--primary-color-dark);
+    --error-color-dark: #F87171; /* Red 400 */
+
+
+    --current-bg-color: var(--bg-color-light);
+    --current-surface-color: var(--surface-color-light);
+    --current-text-color: var(--text-color-light);
+    --current-text-muted-color: var(--text-muted-color-light);
+    --current-primary-color: var(--primary-color-light);
+    --current-primary-hover-color: var(--primary-hover-color-light);
+    --current-tertiary-color: var(--tertiary-color-light);
+    --current-tertiary-hover-color: var(--tertiary-hover-color-light);
+    --current-border-color: var(--border-color-light);
+    --current-input-bg-color: var(--input-bg-color-light);
+    --current-input-focus-border: var(--current-input-focus-border-light);
+    --current-error-color: var(--error-color-light);
+
+    --border-radius: 8px;
+    --input-padding: 12px 16px;
+    --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode {
+    --current-bg-color: var(--bg-color-dark);
+    --current-surface-color: var(--surface-color-dark);
+    --current-text-color: var(--text-color-dark);
+    --current-text-muted-color: var(--text-muted-color-dark);
+    --current-primary-color: var(--primary-color-dark);
+    --current-primary-hover-color: var(--primary-hover-color-dark);
+    --current-tertiary-color: var(--tertiary-color-dark);
+    --current-tertiary-hover-color: var(--tertiary-hover-color-dark);
+    --current-border-color: var(--border-color-dark);
+    --current-input-bg-color: var(--input-bg-color-dark);
+    --current-input-focus-border: var(--input-focus-border-dark);
+    --current-error-color: var(--error-color-dark);
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background-color: var(--current-bg-color);
+    color: var(--current-text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 16px;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--current-border-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    color: var(--current-primary-color);
+}
+
+header h1 {
+    font-family: var(--font-family); /* Changed to Inter for consistency */
+    font-weight: 700;
+    color: var(--current-text-color);
+    margin: 0;
+    font-size: 2em; /* 32px */
+}
+
+.tagline {
+    font-size: 0.875em; /* 14px */
+    color: var(--current-text-muted-color);
+    margin: 0 0 0 15px;
+    flex-grow: 1;
+    /* text-align: center; */ /* Adjusted for better balance */
+}
+
+#theme-toggle {
+    background: var(--current-surface-color);
+    border: 1px solid var(--current-border-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--current-text-muted-color);
+    transition: background-color 0.2s, color 0.2s;
+}
+#theme-toggle:hover {
+    background-color: var(--current-primary-color);
+    color: var(--current-surface-color); /* White text on primary bg */
+}
+#theme-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+#input-section, #output-section {
+    background-color: var(--current-surface-color);
+    padding: 25px 30px;
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+    box-shadow: var(--card-shadow);
+}
+
+.form-group, fieldset.form-group {
+    margin-bottom: 25px;
+    border: none;
+    padding: 0;
+}
+
+.form-group label, fieldset.form-group legend {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500; /* Slightly less heavy */
+    font-size: 1em; /* Normalized */
+    color: var(--current-text-color);
+}
+
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: var(--input-padding);
+    border: 1px solid var(--current-border-color);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    font-size: 1em;
+    background-color: var(--current-input-bg-color);
+    color: var(--current-text-color);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--current-primary-color);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--current-primary-color) 30%, transparent);
+}
+
+
+.radio-group label, .checkbox-group label {
+    margin-right: 15px;
+    margin-bottom: 8px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.95em;
+}
+.radio-group input[type="radio"], .checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: var(--current-primary-color);
+    width: 1.1em;
+    height: 1.1em;
+    border: 1px solid var(--current-border-color);
+}
+
+.ingredients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+}
+.small-text {
+    font-size: 0.85em;
+    color: var(--current-text-muted-color);
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+.conditional-options {
+    padding-top: 15px;
+    border-top: 1px solid var(--current-border-color);
+    margin-top: 25px;
+}
+
+button {
+    font-family: var(--font-family);
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+    padding: 12px 25px;
+    font-size: 1.05em;
+    border: none; /* Default to no border for solid buttons */
+}
+button:active {
+    transform: translateY(1px);
+}
+
+/* CTA Button - Sunbeam Orange */
+#generate-button.cta-button {
+    background-color: var(--current-tertiary-color);
+    color: #FFFFFF; /* White text on orange */
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+}
+#generate-button.cta-button:hover {
+    background-color: var(--current-tertiary-hover-color);
+}
+
+/* Secondary button style for Regenerate */
+#regenerate-button {
+    background-color: transparent;
+    color: var(--current-primary-color);
+    border: 1px solid var(--current-primary-color);
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+#regenerate-button:hover {
+    background-color: var(--current-primary-color);
+    color: var(--current-surface-color); /* White/Light text on primary bg */
+    border-color: var(--current-primary-color);
+}
+
+
+button:disabled {
+    background-color: color-mix(in srgb, var(--current-text-muted-color) 50%, var(--current-surface-color) 50%) !important; /* Muted background */
+    color: var(--current-text-muted-color) !important;
+    cursor: not-allowed;
+    box-shadow: none !important;
+    border-color: var(--current-border-color) !important;
+}
+
+
+#loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--current-text-muted-color);
+}
+
+/* New Spinner - Three Bounce / Glow Pulse Style */
+.spinner {
+  margin: 0 auto 20px auto;
+  width: 70px;
+  text-align: center;
+}
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: var(--current-primary-color);
+  border-radius: 100%;
+  display: inline-block;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+.spinner .bounce1 {
+  animation-delay: -0.32s;
+}
+.spinner .bounce2 {
+  animation-delay: -0.16s;
+}
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1.0); }
+}
+
+
+#error-message {
+    background-color: color-mix(in srgb, var(--current-error-color) 15%, transparent);
+    color: var(--current-error-color);
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid color-mix(in srgb, var(--current-error-color) 50%, transparent);
+}
+
+/* Meal Result Card Styling */
+.meal-card {
+    background-color: var(--current-surface-color); /* Use surface for cards by default */
+    padding: 25px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--current-border-color);
+    margin-bottom: 20px;
+    box-shadow: var(--card-shadow);
+}
+
+.meal-card .meal-day-stamp {
+    font-size: 0.9em;
+    color: var(--current-text-muted-color);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.meal-card h3 { /* Meal Name */
+    font-family: var(--font-family); /* Using Inter */
+    font-weight: 600;
+    font-size: 1.5em; /* 24px */
+    color: var(--current-primary-color);
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.meal-card .meal-description {
+    margin-bottom: 20px;
+    font-size: 1em;
+    color: var(--current-text-muted-color);
+}
+
+/* "Day Tracker" Calorie Display */
+.meal-calories {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center content */
+    gap: 8px; /* Smaller gap */
+    background-color: color-mix(in srgb, var(--current-primary-color) 10%, var(--current-surface-color) 90%); /* Light primary bg */
+    padding: 12px 15px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    border: 1px solid color-mix(in srgb, var(--current-primary-color) 30%, transparent);
+}
+
+.meal-calories .calories-icon { /* Replacing fuel-icon with a generic one */
+    width: 24px;
+    height: 24px;
+    color: var(--current-primary-color);
+}
+
+.meal-calories .calories-value {
+    font-size: 1.75em; /* 28px */
+    font-weight: 700;
+    color: var(--current-primary-color);
+}
+.meal-calories .calories-label {
+    font-size: 0.9em;
+    color: var(--current-text-muted-color);
+    align-self: flex-end; /* Align kcal with bottom of number */
+    padding-bottom: 4px;
+}
+
+
+.macros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.macro-item {
+    background-color: var(--current-surface-color);
+    border: 1px solid var(--current-border-color);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+.macro-item .macro-icon { /* For emoji or SVG icon */
+    font-size: 1.5em; /* For emoji scaling */
+    margin-bottom: 8px;
+    display: block; /* Center emoji */
+}
+.macro-item .macro-value {
+    font-size: 1.25em; /* Slightly smaller */
+    font-weight: 600;
+    color: var(--current-text-color);
+}
+.macro-item .macro-label {
+    font-size: 0.8em;
+    color: var(--current-text-muted-color);
+    text-transform: uppercase;
+}
+
+.meal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+.tag {
+    background-color: color-mix(in srgb, var(--current-primary-color) 15%, transparent);
+    color: var(--current-primary-color);
+    padding: 6px 12px;
+    border-radius: 15px; /* Pill shape */
+    font-size: 0.8em;
+    font-weight: 500;
+    border: 1px solid color-mix(in srgb, var(--current-primary-color) 30%, transparent);
+}
+/* Specific tag styles (e.g., CalorieMatch) can be added if needed */
+.tag.calorie-match-good {
+    background-color: color-mix(in srgb, var(--current-tertiary-color) 20%, transparent);
+    color: var(--current-tertiary-color);
+    border-color: color-mix(in srgb, var(--current-tertiary-color) 40%, transparent);
+}
+
+
+.meal-details-heading {
+    font-size: 1.1em; /* Slightly smaller */
+    font-weight: 600;
+    color: var(--current-text-color);
+    margin-top: 25px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--current-border-color);
+}
+
+.meal-card p, .meal-card ul, .meal-card ol {
+    color: var(--current-text-muted-color);
+}
+.meal-card ul, .meal-card ol {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+.meal-card li {
+    margin-bottom: 8px;
+}
+.meal-card strong {
+    font-weight: 600;
+    color: var(--current-text-color);
+}
+.meal-card pre {
+    background-color: var(--current-bg-color);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--current-border-color);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 0.9em;
+    color: var(--current-text-color);
+}
+
+.tooltip {
+    background-color: var(--current-primary-color);
+    color: var(--current-surface-color); /* White text on primary */
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--card-shadow);
+}
+.tooltip p {
+    margin: 0;
+    font-size: 0.95em;
+}
+#close-tooltip {
+    background: none;
+    border: none;
+    color: var(--current-surface-color);
+    font-size: 1.5em;
+    padding: 0 5px;
+    line-height: 1;
+}
+
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--current-border-color);
+    font-size: 0.9em;
+    color: var(--current-text-muted-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+    header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start; /* Align logo and toggle to left */
+    }
+    .tagline {
+        margin-left:0;
+        text-align: left;
+        width: 100%;
+    }
+    header h1 {
+        font-size: 1.8em;
+    }
+    #input-section, #output-section, .meal-card {
+        padding: 20px;
+    }
+    .ingredients-grid {
+        grid-template-columns: 1fr;
+    }
+    button {
+        font-size: 1em;
+    }
+    .macros {
+        grid-template-columns: 1fr; /* Stack macros */
+    }
+    .meal-calories .calories-value {
+        font-size: 1.6em;
+    }
+    .meal-card h3 {
+        font-size: 1.3em;
+    }
+}
+textarea {
+    min-height: 60px;
+}

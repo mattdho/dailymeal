@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Meal - Your Best Meal. Every Day.</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="light-mode"> <!-- Default to light mode -->
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM10 17l6-5-6-5v10z"></path></svg>
+                <h1>Daily Meal</h1>
+            </div>
+            <p class="tagline">Your Best Meal. Every Day.</p>
+            <button id="theme-toggle" aria-label="Toggle theme">
+                <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </header>
+
+        <main>
+            <div id="onboarding-tooltip" class="tooltip" style="display:none;">
+                <p>Welcome to Daily Meal! Just set your target calories and meal source, and we'll find your perfect meal. <button id="close-tooltip" aria-label="Close tooltip">&times;</button></p>
+            </div>
+
+            <section id="input-section" aria-labelledby="input-heading">
+                <h2 id="input-heading" class="sr-only">Meal Configuration</h2>
+                <form id="meal-form">
+                    <div class="form-group">
+                        <label for="calories">Your Daily Calories (kcal):</label>
+                        <input type="number" id="calories" name="calories" value="1500" required min="500" max="5000" step="50">
+                    </div>
+
+                    <fieldset class="form-group">
+                        <legend>Meal Source:</legend>
+                        <div class="radio-group">
+                            <label><input type="radio" id="fast-food" name="meal-mode" value="fast-food" checked> Fast Food</label>
+                            <label><input type="radio" id="dining-out" name="meal-mode" value="dining-out"> Restaurant Meal</label>
+                            <label><input type="radio" id="cook-home" name="meal-mode" value="cook-home"> Home Cooking</label>
+                        </div>
+                    </fieldset>
+
+                    <div id="fast-food-options" class="conditional-options">
+                        <fieldset class="form-group">
+                            <legend>Fast Food Type (Optional):</legend>
+                            <div class="form-group">
+                                <label for="fast-food-type" class="sr-only">Select fast food type:</label>
+                                <select id="fast-food-type" name="fast-food-type">
+                                    <option value="any">Any / General</option>
+                                    <option value="burgers">Burgers / American</option>
+                                    <option value="mexican">Mexican (e.g., Tacos, Burritos)</option>
+                                    <option value="pizza">Pizza</option>
+                                    <option value="sandwiches">Sandwiches / Subs</option>
+                                    <option value="chicken">Chicken (e.g., Fried, Grilled)</option>
+                                    <option value="chinese">Asian / Chinese</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div id="dining-out-options" class="conditional-options" style="display:none;">
+                        <fieldset class="form-group">
+                            <legend>Restaurant Preferences (Optional):</legend>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="dining-tags" value="high protein"> High Protein</label>
+                                <label><input type="checkbox" name="dining-tags" value="low carb"> Low Carb</label>
+                                <label><input type="checkbox" name="dining-tags" value="vegetarian"> Vegetarian</label>
+                                <label><input type="checkbox" name="dining-tags" value="vegan"> Vegan</label>
+                                <label><input type="checkbox" name="dining-tags" value="gluten-free"> Gluten-Free</label>
+                                <label><input type="checkbox" name="dining-tags" value="budget-friendly"> Budget-Friendly</label>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div id="cook-home-options" class="conditional-options" style="display:none;">
+                        <fieldset class="form-group">
+                            <legend>Ingredients on Hand:</legend>
+                            <p class="small-text">Select common items, or type others below.</p>
+                            <div class="checkbox-group ingredients-grid">
+                                <label><input type="checkbox" name="common-ingredients" value="Chicken Breast"> Chicken Breast</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Ground Beef"> Ground Beef</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Salmon"> Salmon</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Eggs"> Eggs</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Tofu"> Tofu</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Rice"> Rice</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Pasta"> Pasta</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Quinoa"> Quinoa</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Potatoes"> Potatoes</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Broccoli"> Broccoli</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Spinach"> Spinach</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Onions"> Onions</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Garlic"> Garlic</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Tomatoes"> Tomatoes</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Olive Oil"> Olive Oil</label>
+                                <label><input type="checkbox" name="common-ingredients" value="Avocado"> Avocado</label>
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <label for="extra-ingredients">Additional Ingredients (comma-separated):</label>
+                            <textarea id="extra-ingredients" name="extra-ingredients" rows="2" placeholder="e.g., soy sauce, specific spices..."></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" id="generate-button" class="cta-button">Get My Daily Meal</button>
+                </form>
+            </section>
+
+            <section id="output-section" aria-labelledby="output-heading">
+                <h2 id="output-heading" class="sr-only">Meal Suggestion</h2>
+                <div id="loading" style="display:none;" aria-live="polite">
+                    <div class="spinner">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                    <p>Finding your Daily Meal...</p>
+                </div>
+                <div id="error-message" role="alert" style="display:none;"></div>
+                <div id="meal-result-container" style="display:none;">
+                    <!-- Content will be dynamically inserted here by JS -->
+                </div>
+                <button id="regenerate-button" style="display:none;">Try Another Meal</button>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; <span id="current-year"></span> Daily Meal. Your Best Meal. Every Day.</p>
+        </footer>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/genai": "https://esm.sh/@google/genai@^0.12.0"
+        }
+      }
+    </script>
+    <script type="module" src="index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
