@@ -42,7 +42,7 @@
     --current-tertiary-hover-color: var(--tertiary-hover-color-light);
     --current-border-color: var(--border-color-light);
     --current-input-bg-color: var(--input-bg-color-light);
-    --current-input-focus-border: var(--current-input-focus-border-light);
+    --current-input-focus-border: var(--input-focus-border-light);
     --current-error-color: var(--error-color-light);
 
     --border-radius: 8px;
